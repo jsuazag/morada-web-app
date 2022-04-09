@@ -2,6 +2,7 @@ import { Fragment } from "react";
 import { PropertyTypeButton } from "./components/PropertyTypeButton";
 import { PropertyTypesContainer } from "./styles";
 import { IoBusiness, IoHome, IoMap, IoPrism, IoLocation } from 'react-icons/io5' 
+import { PropertyCard } from "./components/PropertyCard";
 
 const PropertiesTypes = [
     { icon: IoBusiness, label: 'Apartamentos' },
@@ -20,5 +21,7 @@ export const Home = () => (
                 <PropertyTypeButton icon={item.icon} label={item.label} /> )
         }
         </PropertyTypesContainer>
+
+        <PropertyCard />
     </Fragment>
 )
