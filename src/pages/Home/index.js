@@ -3,6 +3,7 @@ import { PropertyTypeButton } from "./components/PropertyTypeButton";
 import { PropertyTypesContainer } from "./styles";
 import { IoBusiness, IoHome, IoMap, IoPrism, IoLocation } from 'react-icons/io5' 
 import { PropertyCard } from "./components/PropertyCard";
+import { Page } from "../../components/Page";
 
 const PropertiesTypes = [
     { icon: IoBusiness, label: 'Apartamentos' },
@@ -13,7 +14,7 @@ const PropertiesTypes = [
 ];
 
 export const Home = () => (
-    <Fragment>
+    <Page>
         <h1>home - morada</h1>
         <PropertyTypesContainer>
         {
@@ -23,5 +24,5 @@ export const Home = () => (
         </PropertyTypesContainer>
 
         <PropertyCard />
-    </Fragment>
+    </Page>
 )
