@@ -1,13 +1,14 @@
 import { Fragment } from "react";
 import { PropertyTypeButton } from "./components/PropertyTypeButton";
 import { PropertyTypesContainer } from "./styles";
+import { IoBusiness, IoHome, IoMap, IoPrism, IoLocation } from 'react-icons/io5' 
 
 const PropertiesTypes = [
-    { icon: 'icono-apartamento', label: 'Apartamentos' },
-    { icon: 'icono-casa', label: 'Casas' },
-    { icon: 'icono-lote', label: 'Lotes' },
-    { icon: 'icono-finca', label: 'Fincas' },
-    { icon: 'icono-local', label: 'Locales' },
+    { icon: IoBusiness, label: 'Apartamentos' },
+    { icon: IoHome, label: 'Casas' },
+    { icon: IoMap, label: 'Lotes' },
+    { icon: IoPrism, label: 'Fincas' },
+    { icon: IoLocation, label: 'Locales' },
 ];
 
 export const Home = () => (
