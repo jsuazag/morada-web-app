@@ -5,6 +5,8 @@ import { PageWrapper } from "./styles";
 export const Page = (props) => (
   <Fragment>
     <PageWrapper>{props.children}</PageWrapper>
-    <Menu />
+    {
+      !props.hideMenu && <Menu />
+    }
   </Fragment>
 );
