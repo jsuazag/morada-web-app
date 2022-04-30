@@ -1,6 +1,6 @@
 import { Button } from "../../components/Button";
 import { Page } from "../../components/Page";
-import { PageTitle } from "../../globalStyles";
+import { PageTitle, FooterFixed } from "../../globalStyles";
 
 export const Account = () => {
 
@@ -12,10 +12,12 @@ export const Account = () => {
             <h5>9999991111</h5>
             <p>jerson.suaza@cedesistemas.edu.co</p>
             <hr />
-            <Button 
-                label="Cerrar sesión" 
-                onPress={ () => { alert('cerrar sesión') } } 
-            />
+            <FooterFixed>
+                <Button 
+                    label="Cerrar sesión" 
+                    onPress={ () => { alert('cerrar sesión') } } 
+                />
+            </FooterFixed>
         </div>
     )
 
