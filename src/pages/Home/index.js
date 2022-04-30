@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { useState, useEffect } from "react";
 import { PropertyTypeButton } from "./components/PropertyTypeButton";
 import { PropertyTypesContainer } from "./styles";
 import { IoBusiness, IoHome, IoMap, IoPrism, IoLocation } from 'react-icons/io5' 
@@ -6,28 +6,48 @@ import { PropertyCard } from "./components/PropertyCard";
 import { Page } from "../../components/Page";
 
 const PropertiesTypes = [
-    { icon: IoBusiness, label: 'Apartamentos' },
-    { icon: IoHome, label: 'Casas' },
-    { icon: IoMap, label: 'Lotes' },
-    { icon: IoPrism, label: 'Fincas' },
-    { icon: IoLocation, label: 'Locales' },
+    { id: 1, icon: IoBusiness, label: 'Apartamentos' },
+    { id: 2, icon: IoHome, label: 'Casas' },
+    { id: 3, icon: IoMap, label: 'Lotes' },
+    { id: 4, icon: IoPrism, label: 'Fincas' },
+    { id: 5, icon: IoLocation, label: 'Locales' },
 ];
 
-export const Home = () => (
-    <Page>
-        <h1>home - morada</h1>
-        <PropertyTypesContainer>
-        {
-            PropertiesTypes.map(item => 
-                <PropertyTypeButton icon={item.icon} label={item.label} /> )
-        }
-        </PropertyTypesContainer>
+export const Home = () => {
 
-        <PropertyCard />
-        <PropertyCard />
-        <PropertyCard />
-        <PropertyCard />
-        <PropertyCard />
-        <PropertyCard />
-    </Page>
-)
+    const [propertyTypeSelected, setPropertyTypeSelected] = useState(1);
+
+    const propertyTypeHandler = (id) => {
+        setPropertyTypeSelected(id);
+    }
+
+    useEffect(() => {
+      // acciones a ejecutar  
+      console.log('propertyTypeSelected ', propertyTypeSelected);
+    }, [propertyTypeSelected]);
+
+    return (
+        <Page>
+            <h1>home - morada</h1>
+            <PropertyTypesContainer>
+            {
+                PropertiesTypes.map(item => 
+                    <PropertyTypeButton 
+                        selected={propertyTypeSelected === item.id} 
+                        icon={item.icon} 
+                        label={item.label}
+                        id={item.id}
+                        onPress={propertyTypeHandler}
+                    /> )
+            }
+            </PropertyTypesContainer>
+
+            <PropertyCard />
+            <PropertyCard />
+            <PropertyCard />
+            <PropertyCard />
+            <PropertyCard />
+            <PropertyCard />
+        </Page>
+    );
+};

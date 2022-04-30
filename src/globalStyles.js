@@ -44,7 +44,7 @@ export const FormControlInput = styled.div`
         color: #222;
         font-weight: 500;
     }
-    input[type="email"], input[type="password"] {
+    input[type="email"], input[type="password"], input[type="text"] {
         //display: block;
         width: 100%;
         font-size: 1.1em;

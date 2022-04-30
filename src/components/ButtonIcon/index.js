@@ -20,7 +20,7 @@ const ButtonIconStyle = styled.button`
 `;
 
 export const ButtonIcon = ({ icon: Icon, onPress }) => (
-    <ButtonIconStyle onClick={onPress}>
+    <ButtonIconStyle type="button" onClick={onPress}>
         <Icon />
     </ButtonIconStyle>
 );
