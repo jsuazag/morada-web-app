@@ -2,10 +2,16 @@ import { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { ButtonStyled, LinkStyled } from "./styles";
 
-export const Button = ({ label, onPress, linkTo, type = "button" }) => (
+export const Button = ({
+  label,
+  onPress,
+  linkTo,
+  type = "button",
+  disabled = false,
+}) => (
   <Fragment>
     {onPress ? (
-      <ButtonStyled type={type} onClick={onPress}>
+      <ButtonStyled disabled={disabled} type={type} onClick={onPress}>
         {label}
       </ButtonStyled>
     ) : (

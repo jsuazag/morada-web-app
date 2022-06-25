@@ -15,7 +15,14 @@ import { useForm } from "react-hook-form";
 export const Login = () => {
 
   const [visiblePass, setVisiblePass] = useState(false);
-  const { register, handleSubmit } = useForm();
+  const { 
+    register,
+    handleSubmit,
+    formState: {
+      errors,
+      isValid
+    }
+  } = useForm({ mode: 'onChange' });
 
   const tooglePasswordVisible = () => {
     setVisiblePass(!visiblePass);
@@ -48,7 +55,12 @@ export const Login = () => {
         <FormControl>
           <FormControlInput>
             <label>Correo electrónico</label>
-            <input type="email" {...register("email")} />
+            <input 
+              type="email" 
+              {...register("email", {required: true, pattern: /\S+@\S+\.\S+/ })}
+            />
+            { errors.email?.type === 'required' && <span>El campo correo es requerido</span> }
+            { errors.email?.type === 'pattern' && <span>Ingrese un correo electrónico valido</span> }
           </FormControlInput>
         </FormControl>
         <FormControl>
@@ -56,15 +68,16 @@ export const Login = () => {
             <label>Contraseña</label>
             <input 
               type={visiblePass ? "text" : "password" } 
-              {...register("password")}
+              {...register("password", { required: true })}
             />
+            { errors.password?.type === 'required' && <span>El campo contraseña es requerido</span> }
           </FormControlInput>
           <FormControlAction>
             <ButtonIcon icon={visiblePass ? IoEyeOff : IoEye} onPress={tooglePasswordVisible} />
           </FormControlAction>
         </FormControl>
         <br />
-        <Button type="submit" onPress={() => {}} label="Ingresar"/>
+        <Button disabled={!isValid} type="submit" onPress={() => {}} label="Ingresar"/>
       </form>
     </Page>
   )

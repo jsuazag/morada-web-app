@@ -11,13 +11,17 @@ const BaseButtonStyle = css`
     border-radius: 6px;
     padding: 9px 0;
     opacity: 0.9;
+    cursor: pointer;
     &:hover {
-        cursor: pointer;
         opacity: 1;
     }
 `;
 export const ButtonStyled = styled.button`
-    ${BaseButtonStyle}
+    ${BaseButtonStyle};
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
 `;
 export const LinkStyled = styled(Link)`
     ${BaseButtonStyle}
