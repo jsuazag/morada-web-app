@@ -10,22 +10,24 @@ import { Button } from "../../components/Button";
 import { ButtonIcon } from "../../components/ButtonIcon";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { requestHttp } from "../../utils/HttpRequest";
-
+import { useForm } from "react-hook-form";
 
 export const Login = () => {
 
   const [visiblePass, setVisiblePass] = useState(false);
+  const { register, handleSubmit } = useForm();
 
   const tooglePasswordVisible = () => {
     setVisiblePass(!visiblePass);
   }
 
-  const loginHandler = async () => {
+  const onSubmitLogin = (data) => {
+    console.log('data', data);
+    loginRequest(data);
+  }
+
+  const loginRequest = async (data) => {
     try {
-      const data = {
-        email: "juan2@gmail.com",
-        password: "123456"
-      };
       const response = await requestHttp(
           { 
             endpoint: '/users/login',
@@ -42,24 +44,27 @@ export const Login = () => {
     <Page hideMenu>
       <PageTitle>Iniciar sesión</PageTitle>
       <br />
-      <form>
+      <form onSubmit={handleSubmit(onSubmitLogin)}>
         <FormControl>
           <FormControlInput>
             <label>Correo electrónico</label>
-            <input type="email" />
+            <input type="email" {...register("email")} />
           </FormControlInput>
         </FormControl>
         <FormControl>
           <FormControlInput>
             <label>Contraseña</label>
-            <input type={visiblePass ? "text" : "password" } />
+            <input 
+              type={visiblePass ? "text" : "password" } 
+              {...register("password")}
+            />
           </FormControlInput>
           <FormControlAction>
             <ButtonIcon icon={visiblePass ? IoEyeOff : IoEye} onPress={tooglePasswordVisible} />
           </FormControlAction>
         </FormControl>
         <br />
-        <Button label="Ingresar" onPress={loginHandler} />
+        <Button type="submit" onPress={() => {}} label="Ingresar"/>
       </form>
     </Page>
   )
