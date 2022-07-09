@@ -44,7 +44,6 @@ export const Login = () => {
         body: data,
       });
       const {data: dataResponse} = response;
-      await requestGetUserInfo(dataResponse.token);
       setToken(dataResponse.token);
       showAlert(
         "Bienvenido",
@@ -57,27 +56,6 @@ export const Login = () => {
       showAlert("Error", "Credenciales incorrectas", SW_ICON.ERROR);
     }
   };
-
-  const requestGetUserInfo = async (token) => {
-    try {
-      const response = await requestHttp({
-        method: HTTP_VERBS.GET,
-        endpoint: '/users/info',
-        token
-      });
-      const {data} = response;
-      setUser({
-        name: data.user.name,
-        phone: data.user.phone,
-        role: data.user.role,
-        identification: data.user.document,
-        email: data.user.email,
-        isAuthenticated: true
-      });
-    } catch (error) {
-      console.log('error', error)
-    }
-  }
 
   return (
     <Page hideMenu>

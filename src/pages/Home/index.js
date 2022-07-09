@@ -5,6 +5,7 @@ import { IoBusiness, IoHome, IoMap, IoPrism, IoLocation } from 'react-icons/io5'
 import { PropertyCard } from "./components/PropertyCard";
 import { Page } from "../../components/Page";
 import { SampleContext } from "../../contexts/SampleContext";
+import { UserContext } from "../../contexts/UserContext";
 
 const PropertiesTypes = [
     { id: 1, icon: IoBusiness, label: 'Apartamentos' },
@@ -17,7 +18,7 @@ const PropertiesTypes = [
 export const Home = () => {
 
     const [propertyTypeSelected, setPropertyTypeSelected] = useState(1);
-    const sampleValue = useContext(SampleContext);
+    const {user, setUser} = useContext(UserContext);
 
     const propertyTypeHandler = (id) => {
         setPropertyTypeSelected(id);
@@ -31,7 +32,7 @@ export const Home = () => {
     return (
         <Page>
             <h1>home - morada</h1>
-            <h4>{sampleValue}</h4>
+            <h4>{user.name}</h4>
             <PropertyTypesContainer>
             {
                 PropertiesTypes.map(item => 
