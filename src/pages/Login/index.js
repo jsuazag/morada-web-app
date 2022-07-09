@@ -13,6 +13,7 @@ import { requestHttp } from "../../utils/HttpRequest";
 import { useForm } from "react-hook-form";
 import { showAlert, SW_ICON } from "../../utils/SwAlert";
 import { useNavigate } from "react-router-dom";
+import { setToken } from "../../utils/TokenLS";
 
 export const Login = () => {
   const [visiblePass, setVisiblePass] = useState(false);
@@ -38,7 +39,8 @@ export const Login = () => {
         endpoint: "/users/login",
         body: data,
       });
-      console.log(response);
+      const {data: dataResponse} = response;
+      setToken(dataResponse.token);
       showAlert(
         "Bienvenido",
         "Validación correcta",
