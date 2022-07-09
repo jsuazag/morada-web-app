@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Page } from "../../components/Page";
 import {
   FormControl,
@@ -9,13 +9,17 @@ import {
 import { Button } from "../../components/Button";
 import { ButtonIcon } from "../../components/ButtonIcon";
 import { IoEye, IoEyeOff } from "react-icons/io5";
-import { requestHttp } from "../../utils/HttpRequest";
+import { HTTP_VERBS, requestHttp } from "../../utils/HttpRequest";
 import { useForm } from "react-hook-form";
 import { showAlert, SW_ICON } from "../../utils/SwAlert";
 import { useNavigate } from "react-router-dom";
 import { setToken } from "../../utils/TokenLS";
+import { UserContext } from "../../contexts/UserContext";
 
 export const Login = () => {
+
+  const {user, setUser} = useContext(UserContext);
+
   const [visiblePass, setVisiblePass] = useState(false);
   const navigate = useNavigate();
   const {
@@ -40,6 +44,7 @@ export const Login = () => {
         body: data,
       });
       const {data: dataResponse} = response;
+      await requestGetUserInfo(dataResponse.token);
       setToken(dataResponse.token);
       showAlert(
         "Bienvenido",
@@ -52,6 +57,27 @@ export const Login = () => {
       showAlert("Error", "Credenciales incorrectas", SW_ICON.ERROR);
     }
   };
+
+  const requestGetUserInfo = async (token) => {
+    try {
+      const response = await requestHttp({
+        method: HTTP_VERBS.GET,
+        endpoint: '/users/info',
+        token
+      });
+      const {data} = response;
+      setUser({
+        name: data.user.name,
+        phone: data.user.phone,
+        role: data.user.role,
+        identification: data.user.document,
+        email: data.user.email,
+        isAuthenticated: true
+      });
+    } catch (error) {
+      console.log('error', error)
+    }
+  }
 
   return (
     <Page hideMenu>
