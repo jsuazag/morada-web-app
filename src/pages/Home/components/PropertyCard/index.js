@@ -1,6 +1,7 @@
 import { PropertyBusinessType } from "../../../../components/PropertyBusinessType";
 import { PropertyTypeLabel } from "../../../../components/PropertyTypeLabel";
 import { SubTitle } from "../../../../globalStyles";
+import { getCityZoneLabel } from "../../../../utils/GetDataConstants";
 import { getStaticImage } from "../../../../utils/StaticImage";
 import { PropertyImageWrapper, PropertyCardWrapper, PropertyInfoWrapper } from "./styles";
 
@@ -12,10 +13,10 @@ export const PropertyCard = (props) => (
         <PropertyInfoWrapper>
             <h3>{props.title}</h3>
             <SubTitle>
-                {props.zone}, {props.city}
+                { getCityZoneLabel(props.city, props.zone) }
             </SubTitle>
-            <PropertyTypeLabel />
-            <PropertyBusinessType />
+            <PropertyTypeLabel typeId={props.propertyType} />
+            <PropertyBusinessType businessType={props.businessType} />
             <p>$ {props.value} </p>
         </PropertyInfoWrapper>
     </PropertyCardWrapper>
