@@ -1,27 +1,40 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
+import { Button } from "../../components/Button";
 import { CONTENT_TYPES, requestHttp } from "../../utils/HttpRequest";
+import { showAlert, SW_ICON } from "../../utils/SwAlert";
 
 export const POCUploadImage = () => {
+  const [file, setFile] = useState(null);
 
   const fileSelectedHandler = (event) => {
-    const file = event.target.files[0];
-    requestUploadFile(file);
+    const fileSelected = event.target.files[0];
+    setFile(fileSelected);
+    //requestUploadFile(fileSelected);
+  };
+
+  const uploadFileHandler = (event) => {
+    if (file) {
+        requestUploadFile(file);
+    } else {
+        showAlert("Error", "Selecciona un archivo", SW_ICON.ERROR);
+    }
   };
 
   const requestUploadFile = async (file) => {
     try {
-        const formData = new FormData();
-        formData.append("propertyImage", file);
-        const response = await requestHttp({
-            endpoint: '/properties/upload',
-            contentType: CONTENT_TYPES.MULTIPART_FORM_DATA,
-            body: formData
-        });
-        console.log('response', response);
+      const formData = new FormData();
+      formData.append("propertyImage", file);
+      const response = await requestHttp({
+        endpoint: "/properties/upload",
+        contentType: CONTENT_TYPES.MULTIPART_FORM_DATA,
+        body: formData,
+      });
+      showAlert('Archivo cargado', 'El archivo fue subido', SW_ICON.SUCCESS);
+      console.log("response", response);
     } catch (error) {
-        console.log('error', error);
+      console.log("error", error);
     }
-  }
+  };
 
   return (
     <Fragment>
@@ -32,6 +45,8 @@ export const POCUploadImage = () => {
         //multiple
         onChange={fileSelectedHandler}
       />
+      <br /><br />
+      <Button label={"Subir Imagen"} onPress={uploadFileHandler} />
     </Fragment>
   );
 };
