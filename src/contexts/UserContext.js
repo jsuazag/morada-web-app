@@ -1,7 +1,7 @@
 import { createContext, useState } from "react";
 
 const initialState = {
-    role: 0,
+    role: 1, // usuario cliente
     name: '',
     phone: '',
     email: '',
